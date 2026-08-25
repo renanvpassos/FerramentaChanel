@@ -76,6 +76,12 @@ def tratar_planilha(file, incoterm_valor):
     # H: FATURA ➔ "FATURA"
     df_final['FATURA'] = df_origem[C_FATURA]
 
+    # H: FATURA ➔ "FATURA"
+    df_final['nrlote'] = df_origem[C_ORDEM_COMPRA]
+
+    # H: FATURA ➔ "FATURA"
+    df_final['expedicao'] = df_origem[C_GTIN_EAN]
+
     # I: OUTRAS REFERENCIAS ➔ "CODIGO(GTIN / EAN)" (Tratado como Texto Puro)
     def limpar_referencia(valor):
         if pd.isna(valor): return ""
@@ -84,37 +90,6 @@ def tratar_planilha(file, incoterm_valor):
         return val_str
 
     df_final['OUTRAS REFERENCIAS'] = df_origem[C_GTIN_EAN].apply(limpar_referencia)
-
-    # J e K: nrlote e expedicao ➔ Baseados em "ORDEM DE COMPRA" usando Regex
-    def extrair_dados_regex(valor):
-        val_str = str(valor).strip()
-
-        # Procura por dois blocos de texto separados por qualquer tipo de barra (\ ou /)
-        match = re.search(r"([^\/\\]+)\s*[\/\\]+\s*([^\/\\]+)", val_str)
-
-        if match:
-            parte_1 = match.group(1).strip()
-            exp = parte_1[:6]
-
-            parte_2 = match.group(2).strip()
-            lote = parte_2[-3:]
-
-            return lote, exp
-
-        try:
-            for sep in ["\\", "/"]:
-                if sep in val_str:
-                    partes = val_str.split(sep)
-                    return partes[1].strip()[-3:], partes[0].strip()[:6]
-        except:
-            pass
-
-        return "", ""
-
-    # Aplicando a extração baseada na coluna "ORDEM DE COMPRA"
-    dados_extraidos = df_origem[C_ORDEM_COMPRA].apply(extrair_dados_regex)
-    df_final['nrlote'] = [d[0] for d in dados_extraidos]
-    df_final['expedicao'] = [d[1] for d in dados_extraidos]
 
     return df_final
 
