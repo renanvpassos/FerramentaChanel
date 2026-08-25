@@ -43,7 +43,7 @@ def tratar_planilha(file, incoterm_valor):
     # A: PARTNUMBER ➔ "CÓDIGO PRINCIPAL"
     df_final['PARTNUMBER'] = df_origem[C_PARTNUMBER]
 
-    # B: QUANTIDADE ➔ "QUANTIDADE"
+    # B: QUANTIDADE ➔ "QUANTIDADE"s
     df_final['QUANTIDADE'] = df_origem[C_QUANTIDADE]
 
     # C: UNIDADE ➔ Lógica Tênis/Sapato/Mocassim baseada em "DESCRICAO PORTUGUES"
