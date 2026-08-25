@@ -36,7 +36,7 @@ def tratar_planilha(file, incoterm_valor):
     # Criando o DataFrame final com a estrutura exata solicitada (Case Sensitive)
     colunas_finais = [
         'PARTNUMBER', 'QUANTIDADE', 'UNIDADE', 'PRECOTOTAL', 'PESOTOTAL',
-        'INCOTERMS', 'MOEDA', 'FATURA', 'OUTRAS REFERENCIAS', 'nrlote', 'expedicao'
+        'INCOTERMS', 'MOEDA', 'FATURA', 'nrlote', 'expedicao'
     ]
     df_final = pd.DataFrame(columns=colunas_finais)
 
@@ -83,7 +83,6 @@ def tratar_planilha(file, incoterm_valor):
     df_final['expedicao'] = df_origem[C_GTIN_EAN]
 
     return df_final
-
 
 # --- CONFIGURAÇÃO DA INTERFACE WEB (STREAMLIT) ---
 st.set_page_config(page_title="Tratador de Planilhas", layout="centered")
