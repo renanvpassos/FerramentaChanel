@@ -82,15 +82,6 @@ def tratar_planilha(file, incoterm_valor):
     # H: FATURA ➔ "FATURA"
     df_final['expedicao'] = df_origem[C_GTIN_EAN]
 
-    # I: OUTRAS REFERENCIAS ➔ "CODIGO(GTIN / EAN)" (Tratado como Texto Puro)
-    def limpar_referencia(valor):
-        if pd.isna(valor): return ""
-        val_str = str(valor).strip()
-        if val_str.endswith('.0'): val_str = val_str[:-2]
-        return val_str
-
-    df_final['OUTRAS REFERENCIAS'] = df_origem[C_GTIN_EAN].apply(limpar_referencia)
-
     return df_final
 
 
