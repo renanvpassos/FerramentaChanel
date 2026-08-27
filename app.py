@@ -36,7 +36,7 @@ def tratar_planilha(file, incoterm_valor):
     # Criando o DataFrame final com a estrutura exata solicitada (Case Sensitive)
     colunas_finais = [
         'PARTNUMBER', 'QUANTIDADE', 'UNIDADE', 'PRECOTOTAL', 'PESOTOTAL',
-        'INCOTERMS', 'MOEDA', 'FATURA', 'nrlote', 'expedicao'
+        'INCOTERMS', 'MOEDA', 'FATURA', 'nrlote', 'Outras Referencias'
     ]
     df_final = pd.DataFrame(columns=colunas_finais)
 
@@ -80,7 +80,7 @@ def tratar_planilha(file, incoterm_valor):
     df_final['nrlote'] = df_origem[C_ORDEM_COMPRA]
 
     # H: FATURA ➔ "FATURA"
-    df_final['expedicao'] = df_origem[C_GTIN_EAN]
+    df_final['Outras Referencias'] = df_origem[C_GTIN_EAN]
 
     return df_final
 
